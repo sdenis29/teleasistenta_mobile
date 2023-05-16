@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teleasistenta_mobile/components/reusable_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:teleasistenta_mobile/screens/login_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -19,7 +20,11 @@ class _MyHomePageState extends State<MyHomePage> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text(widget.title)),
+        title: Center(
+            child: Text(
+          widget.title,
+          style: const TextStyle(fontSize: 25),
+        )),
       ),
       body: Center(
         child: Column(
@@ -33,11 +38,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ReusableButton(
               color: Colors.red,
               onPress: () {
-                print('alo');
+                Navigator.pushNamed(context, LoginScreen.id);
               },
               buttonChild: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Text('Conectare'),
+                padding: EdgeInsets.all(15),
+                child: Text(
+                  'Conectare',
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
             ),
           ],

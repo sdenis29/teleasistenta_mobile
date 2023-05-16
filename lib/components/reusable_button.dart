@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ReusableButton extends StatelessWidget {
-  ReusableButton(
-      {super.key,
-      required this.color,
-      required this.onPress,
-      required this.buttonChild,
-      this.width_factor,
-      this.height_factor});
+  const ReusableButton({
+    super.key,
+    required this.color,
+    required this.onPress,
+    required this.buttonChild,
+  });
 
   final Color color;
   final VoidCallback onPress;
   final Widget buttonChild;
-  final double? width_factor;
-  final double? height_factor;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +24,6 @@ class ReusableButton extends StatelessWidget {
         ),
         backgroundColor: color,
         elevation: 10,
-        // padding: EdgeInsets.symmetric(
-        // horizontal: width * width_factor!,
-        // vertical: height * height_factor!),
       ),
       child: buttonChild,
     );
