@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:teleasistenta_mobile/components/reusable_button.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
   final String title;
+  static String id = 'home';
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -12,16 +15,30 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Center(child: Text(widget.title)),
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              child: Text("ABABABABBA"),
+              width: width * 0.6,
+              height: height * 0.3,
+              child: SvgPicture.asset('assets/svgs/start.svg'),
+            ),
+            ReusableButton(
               color: Colors.red,
+              onPress: () {
+                print('alo');
+              },
+              buttonChild: const Padding(
+                padding: EdgeInsets.all(10),
+                child: Text('Conectare'),
+              ),
             ),
           ],
         ),

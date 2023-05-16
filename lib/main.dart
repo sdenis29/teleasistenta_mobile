@@ -15,7 +15,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const MyHomePage(title: 'Welcome to ElderTrack'),
+      home: const MyHomePage(title: 'Welcome to ElderTrack!'),
+      initialRoute: MyHomePage.id,
+      routes: {
+        MyHomePage.id: (context) =>
+            const MyHomePage(title: 'Welcome to ElderTrack!'),
+      },
     );
   }
 }
