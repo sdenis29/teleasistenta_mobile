@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "836245110142",
+    "project_id": "teleasistenta-83ccd",
+    "storage_bucket": "teleasistenta-83ccd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836245110142:android:6dd33aa2468f7fca09872f",
+        "android_client_info": {
+          "package_name": "com.example.teleasistenta_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836245110142-jsjp6khocomfes4feiqrknsjasjn5ncq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgtSewYJaFiACo2pOWfZtMRF7tS6Ftpo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836245110142-jsjp6khocomfes4feiqrknsjasjn5ncq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
