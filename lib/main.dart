@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teleasistenta_mobile/screens/home_screen.dart';
 import 'package:teleasistenta_mobile/screens/login_screen.dart';
 import 'screens/start_screen.dart';
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         MyHomePage.id: (context) =>
             const MyHomePage(title: 'Welcome to ElderTrack!'),
         LoginScreen.id: (context) => const LoginScreen(),
+        HomeScreen.id: (context) => const HomeScreen(),
       },
     );
   }

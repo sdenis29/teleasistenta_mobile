@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:teleasistenta_mobile/components/reusable_button.dart';
-
 import '../components/text_field.dart';
-// import 'package:teleasistenta_mobile/components/text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -56,7 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               ReusableButton(
                 color: Colors.red,
-                onPress: () => {},
+                onPress: () => {
+                  Navigator.pushNamed(context, 'home'),
+                },
                 buttonChild: const Padding(
                   padding: EdgeInsets.all(15),
                   child: Text(
