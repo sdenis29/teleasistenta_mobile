@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:teleasistenta_mobile/components/reusable_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -53,15 +55,15 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.red,
               buttonChild: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: height * 0.02, horizontal: width * 0.08),
+                    vertical: height * 0.021, horizontal: width * 0.065),
                 child: const Text(
-                  'Istoric medical',
+                  'Vizualizare date',
                   style: TextStyle(fontSize: 21),
                 ),
               ),
             ),
             SizedBox(
-              height: height * 0.015,
+              height: height * 0.02,
             ),
             ReusableButton(
               onPress: () {},
@@ -76,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(
-              height: height * 0.015,
+              height: height * 0.02,
             ),
             ReusableButton(
               onPress: () {},
