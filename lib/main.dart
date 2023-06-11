@@ -4,13 +4,23 @@ import 'package:flutter/services.dart';
 import 'package:teleasistenta_mobile/screens/home_screen.dart';
 import 'package:teleasistenta_mobile/screens/login_screen.dart';
 import 'screens/start_screen.dart';
+import 'screens/add_data_screen.dart';
+import 'dart:async';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(const MyApp());
+  [
+    Permission.location,
+    Permission.bluetooth,
+    Permission.bluetoothConnect,
+    Permission.bluetoothScan
+  ].request().then((status) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -30,6 +40,7 @@ class MyApp extends StatelessWidget {
             const MyHomePage(title: 'Welcome to ElderTrack!'),
         LoginScreen.id: (context) => const LoginScreen(),
         HomeScreen.id: (context) => const HomeScreen(),
+        AddDataScreen.id: (context) => const AddDataScreen(),
       },
     );
   }

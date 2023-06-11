@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teleasistenta_mobile/components/reusable_button.dart';
 import 'package:teleasistenta_mobile/screens/home_screen.dart';
 import 'package:teleasistenta_mobile/services/databaseService.dart';
@@ -77,6 +78,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           await _auth.signInWithEmailAndPassword(
                               email: email, password: password);
                       if (existingUser != null) {
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setString('uid', existingUser.user!.uid);
                         DatabaseService dbService = DatabaseService();
                         dbService.getCurrentUserData(email);
                         Navigator.pushNamed(context, HomeScreen.id);
