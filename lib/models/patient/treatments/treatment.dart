@@ -4,4 +4,11 @@ class Treatment {
   String? solvedDate;
   String? solvedHour;
   String? status;
+
+  Treatment(
+      {this.description,
+      this.remarks,
+      this.solvedDate,
+      this.solvedHour,
+      this.status});
 }

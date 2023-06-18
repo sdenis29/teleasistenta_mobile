@@ -1,4 +1,6 @@
 class Referral {
-  String? decriptor;
+  String? description;
   String? type;
+
+  Referral({this.description, this.type});
 }

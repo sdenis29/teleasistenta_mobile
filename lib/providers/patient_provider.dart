@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+
+import '../models/patient/patient.dart';
 
 class Patients with ChangeNotifier {
   List<String> _patients = [];
@@ -26,17 +30,14 @@ class Patients with ChangeNotifier {
       // final url = "$teleasistentaUrl/ElderTrack/patient/";
       // final response = await http.get(Uri.parse(url));
       final response = await ref.get();
-      print("I'm here");
       response.children.forEach(
         (element) {
-          print("-----------Patient-----------");
-          print(element.key);
-          print(element.value);
-          print("-----------------------------");
+          Map<String, dynamic> decodedData =
+              jsonDecode(jsonEncode(element.value as dynamic));
+          final patient = Patient.patientFromJson(decodedData);
         },
       );
     } catch (error) {
-      print("Or here?");
       print(error);
     }
   }
