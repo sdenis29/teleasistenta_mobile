@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teleasistenta_mobile/components/reusable_button.dart';
+import 'package:teleasistenta_mobile/providers/patient_provider.dart';
 import 'package:teleasistenta_mobile/screens/login_screen.dart';
 import 'package:teleasistenta_mobile/screens/add_data_screen.dart';
 import 'package:flutter_isolate/flutter_isolate.dart';
@@ -297,7 +298,10 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 30,
             ),
             ReusableButton(
-              onPress: () {},
+              onPress: () {
+                final patient = new Patients();
+                patient.fetchPatients();
+              },
               color: Colors.red,
               buttonChild: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
