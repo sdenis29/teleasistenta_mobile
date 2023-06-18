@@ -14,6 +14,7 @@ import 'package:flutter_isolate/flutter_isolate.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:teleasistenta_mobile/screens/show_data.dart';
 
 const alarmMessages = {
   "humMin": "Umiditatea din locuință este extrem de scăzută",
@@ -77,7 +78,6 @@ void processLine(String line) async {
   var limits = await getMedicalRanges();
   limits = jsonDecode(limits);
   print(line);
-  print(limits["ambientTemperatureMax"]);
   List<String> lines = line.split(";");
   int bpm = int.parse(lines[0].split("=")[1]);
   double humidity = double.parse(lines[1].split("=")[1]);
@@ -96,13 +96,9 @@ void processLine(String line) async {
       : false;
   bool gas = lpg || co || smoke ? true : false;
   bool presence = int.parse(lines[6].split("=")[1]) == 1 ? true : false;
+  await setCache(bpm, humidity, temperature);
   final prefs = await SharedPreferences.getInstance();
   final uid = prefs.getString('uid') ?? null;
-  // ignore: deprecated_member_use
-  // DatabaseReference vitalRef = FirebaseDatabase(
-  //         databaseURL:
-  //             "https://teleasistenta-83ccd-default-rtdb.europe-west1.firebasedatabase.app")
-  //     .ref("ElderTrack/patient/$uid/vitalParameters");
   if (bpm < limits["pulseMin"] ||
       bpm > limits["pulseMax"] ||
       temperature < limits["ambientTemperatureMin"] ||
@@ -175,6 +171,29 @@ void processLine(String line) async {
   }
 }
 
+Future<void> setCache(pulse, humidity, temperature) async {
+  final prefs = await SharedPreferences.getInstance();
+  print("PULSE: $pulse");
+  await prefs.setInt('pulse', pulse);
+  await prefs.setDouble('humidity', humidity);
+  await prefs.setDouble('temperature', temperature);
+  String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  String lastSavedDate = prefs.getString('last_saved_date') ?? '';
+  if (currentDate != lastSavedDate) {
+    await prefs.remove('pulseList');
+    await prefs.setString('last_saved_date', currentDate);
+  } else {
+    await prefs.setString('last_saved_date', currentDate);
+  }
+  await prefs.reload();
+  List<String> newItem = [pulse.toString()];
+  String encodedList = prefs.getString('pulseList') ?? '[]';
+  List<String> existingList = List<String>.from(json.decode(encodedList));
+  List<String> concatenatedList = existingList + newItem;
+  String newEncodedList = json.encode(concatenatedList);
+  prefs.setString('pulseList', newEncodedList);
+}
+
 getMedicalRanges() async {
   final prefs = await SharedPreferences.getInstance();
   final uid = prefs.getString('uid') ?? null;
@@ -215,8 +234,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -240,52 +257,51 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: height * 0.08),
+              padding: const EdgeInsets.symmetric(vertical: 30),
               child: Container(
-                width: width * 0.6,
-                height: height * 0.3,
+                width: 300,
+                height: 300,
                 child: SvgPicture.asset('assets/svgs/consult.svg'),
               ),
             ),
             ReusableButton(
-              onPress: () {},
+              onPress: () {
+                Navigator.pushNamed(context, ShowDataScreen.id);
+              },
               color: Colors.red,
-              buttonChild: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: height * 0.021, horizontal: width * 0.065),
-                child: const Text(
+              buttonChild: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                child: Text(
                   'Vizualizare date',
                   style: TextStyle(fontSize: 21),
                 ),
               ),
             ),
-            SizedBox(
-              height: height * 0.02,
+            const SizedBox(
+              height: 30,
             ),
             ReusableButton(
               onPress: () {
                 Navigator.pushNamed(context, AddDataScreen.id);
               },
               color: Colors.red,
-              buttonChild: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: height * 0.02, horizontal: width * 0.08),
-                child: const Text(
+              buttonChild: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                child: Text(
                   'Adăugare date',
                   style: TextStyle(fontSize: 21),
                 ),
               ),
             ),
-            SizedBox(
-              height: height * 0.02,
+            const SizedBox(
+              height: 30,
             ),
             ReusableButton(
               onPress: () {},
               color: Colors.red,
-              buttonChild: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: height * 0.02, horizontal: width * 0.08),
-                child: const Text(
+              buttonChild: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                child: Text(
                   'Istoric medical',
                   style: TextStyle(fontSize: 21),
                 ),

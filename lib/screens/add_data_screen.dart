@@ -140,6 +140,11 @@ class _AddDataScreenState extends State<AddDataScreen> {
                   );
                   return;
                 }
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.setString('bloodPressure', tensiune.text);
+                await prefs.setString('weight', greutate.text);
+                await prefs.setString('glucose', glicemie.text);
+                await prefs.setString('bodyTemperature', temperatura.text);
                 var limits = await getMedicalRanges();
                 limits = jsonDecode(limits);
                 bool tensiuneOk = int.parse(tensiune.text) >=
@@ -157,9 +162,9 @@ class _AddDataScreenState extends State<AddDataScreen> {
                             int.parse(glicemie.text) <= limits["glucoseMax"]
                         ? true
                         : false;
-                bool temperaturaOk = int.parse(temperatura.text) >=
+                bool temperaturaOk = double.parse(temperatura.text) >=
                             limits["bodyTemperatureMin"] &&
-                        int.parse(temperatura.text) <=
+                        double.parse(temperatura.text) <=
                             limits["bodyTemperatureMax"]
                     ? true
                     : false;
@@ -182,7 +187,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                     },
                     "values": {
                       "bloodPressure": int.parse(tensiune.text),
-                      "bodyTemperature": int.parse(temperatura.text),
+                      "bodyTemperature": double.parse(temperatura.text),
                       "glucose": int.parse(glicemie.text),
                       "weight": double.parse(greutate.text)
                     }
@@ -205,7 +210,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                     }
                   }
                   if (!greutateOk) {
-                    if (int.parse(greutate.text) < limits["weightMin"]) {
+                    if (double.parse(greutate.text) < limits["weightMin"]) {
                       alertString =
                           "$alertString ${alarmMessages["weightMin"]}\n";
                       await pushedVital
@@ -239,7 +244,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                     }
                   }
                   if (!temperaturaOk) {
-                    if (int.parse(glicemie.text) <
+                    if (double.parse(temperatura.text) <
                         limits["bodyTemperatureMin"]) {
                       alertString =
                           "$alertString ${alarmMessages["tempMin"]}\n";

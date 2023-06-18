@@ -48,6 +48,8 @@ dependencies:
   flutter_local_notifications: ^14.1.1
   intl: ^0.18.1
   flutter_tts: ^3.7.0
+  fl_chart: ^0.63.0
+  syncfusion_flutter_charts: ^21.2.10
 
 dev_dependencies:
   flutter_test:

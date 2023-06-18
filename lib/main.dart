@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:teleasistenta_mobile/screens/home_screen.dart';
 import 'package:teleasistenta_mobile/screens/login_screen.dart';
+import 'package:teleasistenta_mobile/screens/show_data.dart';
 import 'screens/start_screen.dart';
 import 'screens/add_data_screen.dart';
 import 'dart:async';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => const LoginScreen(),
         HomeScreen.id: (context) => const HomeScreen(),
         AddDataScreen.id: (context) => const AddDataScreen(),
+        ShowDataScreen.id: (context) => const ShowDataScreen()
       },
     );
   }
