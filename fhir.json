@@ -1,0 +1,36 @@
+{
+  "resourceType": "Basic",
+  "id": "ID-ul CERERII LUAT DIN BAZA DE DATE (TREBUIE CREAT ACEST FIELD INAINTE DE A TRIMITE REQUEST-UL CU MESAJUL)",
+  "extension": [
+    {
+      "valueReference": {
+        "reference": "doctor/ID-UL DOCTORULUI",
+        "display": "NUMELE DOCTORULUI"
+      }
+    },
+    {
+      "valueString": "DESCRIEREA TIPULUI DE CONSULTATIE"
+    }
+  ],
+  "modifierExtension": [
+    {
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "COD AL CONSULTATIEI LUAT DE PE SNOMED (CRED) PUTEM PUNE UNUL RANDOM",
+            "display": "Consultation"
+          }
+        ]
+      }
+    }
+  ],
+  "subject": {
+    "reference": "patient/ID-UL PACIENTULUI",
+    "display": "NUMELE PACIENTULUI"
+  },
+  "created": "DATA CURENTA A TRIMITERII CONSULTATIEI",
+  "author": {
+    "reference": "doctor/ID-UL DOCTORULUI"
+  }
+}
