@@ -8,9 +8,9 @@ class CareTeam {
   static CareTeam careTeamFromJson(dynamic json) {
     final Map<String, dynamic> parsedJson = json;
     final CareTeam careTeam = CareTeam(
-        careGiverUID: parsedJson['caregiverUID'],
-        doctorUID: parsedJson['doctorUID'],
-        supervisorUID: parsedJson['supervisorUID']);
+        careGiverUID: parsedJson['caregiverUID'] ?? "",
+        doctorUID: parsedJson['doctorUID'] ?? "",
+        supervisorUID: parsedJson['supervisorUID'] ?? "");
 
     return careTeam;
   }

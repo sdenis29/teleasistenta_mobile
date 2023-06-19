@@ -39,26 +39,40 @@ class PersonalInfo {
     this.street,
   });
 
+  String get address {
+    return '${this.county}, ${this.city}, ${this.street}, ${this.buildingNumber}';
+  }
+
+  Map<String, String> get personalInfo {
+    Map<String, String> info = {};
+    info['CNP'] = CNP!;
+    info['Adresa'] = address;
+    info['Numar telefon'] = phoneNumber!;
+    info['Profesie'] = profession!;
+    info['Alergii'] = allergies!;
+    return info;
+  }
+
   static PersonalInfo personalInfoFromJson(dynamic json) {
     final Map<String, dynamic> parsedJson = json;
     final PersonalInfo personalInfo = PersonalInfo(
-      CNP: parsedJson['CNP'],
-      age: parsedJson['age'],
-      allergies: parsedJson['allergies'],
-      apartment: parsedJson['apartment'],
-      buildingNumber: parsedJson['buildingNumber'],
-      city: parsedJson['city'],
-      county: parsedJson['county'],
-      email: parsedJson['email'],
-      firstName: parsedJson['firstname'],
-      lastName: parsedJson['lastname'],
-      floor: parsedJson['floor'],
-      number: parsedJson['number'],
-      occupation: parsedJson['occupation'],
-      phoneNumber: parsedJson['phoneNumber'],
-      profession: parsedJson['profession'],
-      staircase: parsedJson['staircase'],
-      street: parsedJson['street'],
+      CNP: parsedJson['CNP'] ?? "",
+      age: parsedJson['age'] ?? -1,
+      allergies: parsedJson['allergies'] ?? "",
+      apartment: parsedJson['apartment'] ?? "",
+      buildingNumber: parsedJson['buildingNumber'] ?? "",
+      city: parsedJson['city'] ?? "",
+      county: parsedJson['county'] ?? "",
+      email: parsedJson['email'] ?? "",
+      firstName: parsedJson['firstname'] ?? "",
+      lastName: parsedJson['lastname'] ?? "",
+      floor: parsedJson['floor'] ?? "",
+      number: parsedJson['number'] ?? "",
+      occupation: parsedJson['occupation'] ?? "",
+      phoneNumber: parsedJson['phoneNumber'] ?? "",
+      profession: parsedJson['profession'] ?? "",
+      staircase: parsedJson['staircase'] ?? "",
+      street: parsedJson['street'] ?? "",
     );
 
     return personalInfo;

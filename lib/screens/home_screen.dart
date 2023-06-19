@@ -15,6 +15,7 @@ import 'package:flutter_isolate/flutter_isolate.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:teleasistenta_mobile/screens/medical_history_screen.dart';
 import 'package:teleasistenta_mobile/screens/show_data.dart';
 
 const alarmMessages = {
@@ -299,14 +300,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ReusableButton(
               onPress: () {
-                final patient = new Patients();
-                patient.fetchPatients();
+                Navigator.pushNamed(context, MedicalHistoryScreen.id);
               },
               color: Colors.red,
               buttonChild: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 child: Text(
-                  'Istoric medical',
+                  'Detalii pacient',
                   style: TextStyle(fontSize: 21),
                 ),
               ),

@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:firebase_database/firebase_database.dart';
+
 import './care_team.dart';
 import './personal_info.dart';
 import './medical_history/medical_history.dart';
@@ -12,10 +16,16 @@ class Patient {
   Map<String, MedicalRecord> medicalRecords = {};
   Map<String, Treatment> treatments = {};
   Map<String, Recommendation> recommendations = {};
+  String? doctorAssigned;
+  String? giverAssigned;
+  String? supervisorAssigned;
 
   Patient({
     this.personalInfo,
     this.careTeam,
+    this.doctorAssigned,
+    this.giverAssigned,
+    this.supervisorAssigned,
     Map<String, MedicalHistory>? medicalHistory,
     Map<String, MedicalRecord>? medicalRecords,
     Map<String, Treatment>? treatments,
@@ -61,8 +71,12 @@ class Patient {
     return recommendationMap;
   }
 
-  static Patient patientFromJson(dynamic json) {
+  static Patient patientFromJson(
+      dynamic json, dynamic doctors, dynamic caregiver, dynamic supervisor) {
     final Map<String, dynamic> parsedJson = json;
+    final Map<String, dynamic> doctorsJson = doctors;
+    final Map<String, dynamic> caregiverJson = caregiver;
+    final Map<String, dynamic> supervisorJson = supervisor;
     final Map<String, dynamic>? personalInfo = parsedJson['personalInfo'];
     final Map<String, dynamic>? cTeam = parsedJson['careTeam'];
     final Map<String, dynamic>? mHistory = parsedJson['medicalHistory'];
@@ -90,14 +104,37 @@ class Patient {
     Map<String, Recommendation>? recommendations = recommendationJson == null
         ? null
         : parseRecommendation(recommendationJson);
+
+    var doctorName = "";
+    var giverName = "";
+    var supervisorName = "";
+
+    if (careTeam!.doctorUID != "") {
+      final doctor = doctorsJson[careTeam!.doctorUID!];
+      doctorName = ' ${doctor['firstname'] ?? ""} ${doctor['lastname'] ?? ""}';
+    }
+
+    if (careTeam!.careGiverUID != "") {
+      final caregiver = caregiverJson[careTeam!.careGiverUID!];
+      giverName =
+          ' ${caregiver['firstname'] ?? ""} ${caregiver['lastname'] ?? ""}';
+    }
+
+    if (careTeam!.supervisorUID != "") {
+      final sp = supervisorJson[careTeam!.supervisorUID!];
+      supervisorName = ' ${sp['firstname'] ?? ""} ${sp['lastname'] ?? ""}';
+    }
+
     final Patient patient = Patient(
-      personalInfo: pInfo,
-      careTeam: careTeam,
-      medicalHistory: medicalHistory,
-      medicalRecords: medicalRecord,
-      treatments: treatment,
-      recommendations: recommendations,
-    );
+        personalInfo: pInfo,
+        careTeam: careTeam,
+        medicalHistory: medicalHistory,
+        medicalRecords: medicalRecord,
+        treatments: treatment,
+        recommendations: recommendations,
+        doctorAssigned: doctorName,
+        giverAssigned: giverName,
+        supervisorAssigned: supervisorName);
 
     return patient;
   }
